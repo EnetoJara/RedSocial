@@ -1,0 +1,32 @@
+<div class="col-lg-8">
+    <h1 class="h1-strong">
+        {{ title }}
+        <button (click)="refesh($event);" class=" btn btn-success btn-sm">Mostrar más</button>
+    </h1>
+    <div id="publications">
+        <div *ngFor="let p of publications" class="item-publication">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="image-user pull-left">
+                        <a *ngIf="p.user.image" [routerLink]="['/perfil/' + p.user._id]"> <img src="{{ url + 'user/getImage/' + p.user.image }}" alt="foto de Perfil"> </a>
+                        <a *ngIf="!p.user.image" [routerLink]="['/perfil/' + p.user._id]"> <img src="assets/default-user.png" alt="foto de Perfil"> </a>
+                    </div>
+                    <div>
+                        <span class="user-name">{{ p.user.name + ' ' + p.user.surname }}</span> &nbsp;|&nbsp;
+                        <span class="date">{{ (p.created_at | amFromUnix) | amTimeAgo }}</span>
+                    </div>
+                    <h4 class="publication-text">
+                        {{ p.text }}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 text-center">
+        <p>
+            <button (click)="viewMore()" class="btn btn-success" *ngIf="noMore === false"> Ver mas punblicationes </button>
+        </p>
+    </div>
+</div>
+<app-sidebar (sended)="refesh($event)"></app-sidebar>
+<div class="clearfix"></div>

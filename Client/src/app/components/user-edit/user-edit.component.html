@@ -1,0 +1,39 @@
+<div class="col-lg-5">
+    <h1 class="h1-strong">{{ title }}</h1>
+    <div class="alert alert-success" *ngIf="status===true">
+        Se ha actualizado correctamente!
+    </div>
+    <div class="alert alert-danger" *ngIf="status===false">
+        No se ha podido actualizar la información YnY
+    </div>
+    <form #userEditForm="ngForm" (ngSubmit)="sendForm(userEditForm)" class="col-lg-12">
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input class="form-control" type="text" name="name" #name="ngModel" [(ngModel)]="user.name" required />
+            <span *ngIf="!name.valid && name.touched">Nombre es mandatorio</span>
+        </div>
+        <div class="form-group">
+            <label for="surname">Apelldio</label>
+            <input class="form-control" type="text" name="surname" #surname="ngModel" [(ngModel)]="user.surname" required />
+            <span *ngIf="!surname.valid && surname.touched">Los apellidos son mandatorios</span>
+        </div>
+        <div class="form-group">
+            <label for="nick">Nick</label>
+            <input class="form-control" type="text" name="nick" #nick="ngModel" [(ngModel)]="user.nick" required />
+            <span *ngIf="!nick.valid && nick.touched">El Nick es mandatorio</span>
+        </div>
+        <div class="form-group">
+            <label for="email">email</label>
+            <input class="form-control" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,4}$" />
+            <span *ngIf="!email.valid && email.touched">El email es mandatorio</span>
+        </div>
+        <p class="avatar">
+            <img *ngIf="user.image" src="{{ url + 'user/getImage/'+ user.image }}" />
+        </p>
+        <div class="form-group">
+            <label for="FIle"> Sube tu avatar </label>
+            <input type="file" placeholder="subir imagen" (change)="fileChange($event)" role="button" />
+        </div>
+        <input type="submit" class="btn btn-warning" value="{{ title }}">
+    </form>
+</div>
